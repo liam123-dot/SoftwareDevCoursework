@@ -1,8 +1,5 @@
-public class CardGame {
-    public static void main(String[] args) {
-        System.out.println("How many cards");
-    }
-}
+import java.io.File;
+import java.util.Scanner;
 
 
 class Card {
@@ -10,5 +7,9 @@ class Card {
 
 }
 class Player {
+
+    // each player has a private hand of cards
+    private Card[] hand = new Card[4];
+
     //player class    
 }
