@@ -1,9 +1,10 @@
 import java.util.Scanner;
 import java.io.File;
+import Coursework.Card;
 
 public class CardGame {
 
-    public static int[] loadDeck(String fileLocation, int numberOfPlayers){
+    public static Card[] loadDeck(String fileLocation, int numberOfPlayers){
         // takes the file location. Verifys it has 8n lines that are all ints
 
         try {
@@ -11,13 +12,13 @@ public class CardGame {
             File deck = new File(fileLocation);
             Scanner deckScanner = new Scanner(deck);
 
-            int[] deckArray = new int[8*numberOfPlayers];
+            Card[] deckArray = new Card[8*numberOfPlayers];
 
             int i = 0;
             while (deckScanner.hasNextLine()) {
                 String data = deckScanner.nextLine();
                 try {
-                    deckArray[i] = Integer.parseInt(data);
+                    deckArray[i] = new Card(Integer.parseInt(data));
                 } catch (NumberFormatException e) {
                     System.out.println("The deck file is not formatted correctly");
                     System.exit(0);
@@ -50,7 +51,7 @@ public class CardGame {
         System.out.println("Where is the deck?");
         String deckLocation = input.next();
 
-        int deck[] = loadDeck(deckLocation, numberOfPlayers);
+        Card deck[] = loadDeck(deckLocation, numberOfPlayers);
 
         System.out.println(deck[0]);
 
