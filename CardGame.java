@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.io.File;
-import Coursework.Card;
+import Card;
 
 public class CardGame {
 
