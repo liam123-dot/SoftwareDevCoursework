@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.io.File;
-import Card;
 
 public class CardGame {
 
@@ -14,7 +13,7 @@ public class CardGame {
 
             Card[] deckArray = new Card[8*numberOfPlayers];
 
-            int i = 0;
+            int i = 0;  
             while (deckScanner.hasNextLine()) {
                 String data = deckScanner.nextLine();
                 try {
@@ -37,23 +36,40 @@ public class CardGame {
     }
 
     public static void main(String[] args) {
-        // First requests the inputs of how many players, takes the input which must be an integer
-        // Then Asks for the location of the text file which is the deck.
-        // The deck must have 8n lines where n is the number of players
-        // and all the line must be integers
+        
+        Scanner scanner = new Scanner(System.in);
 
-        // Then the program will create the players and deal the cards
-
-        Scanner input = new Scanner(System.in);
-        System.out.println("How many players are there?");
-
-        int numberOfPlayers = input.nextInt();
-        System.out.println("Where is the deck?");
-        String deckLocation = input.next();
+        int numberOfPlayers = getNumberOfPlayers(scanner);
+        String deckLocation = getDeckLocation(scanner);
 
         Card deck[] = loadDeck(deckLocation, numberOfPlayers);
 
         System.out.println(deck[0]);
 
     }
+
+
+    private static int getNumberOfPlayers(Scanner scanner) {
+        while (true) {
+            try {
+                System.out.println("How many players are there?");
+
+                int numberOfPlayers = scanner.nextInt();
+                if (numberOfPlayers > 0) {
+                    return numberOfPlayers;
+                } else {
+                    System.out.println("Please enter a valid number of players (greater than 0).");
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a positive integer.");
+                scanner.nextLine(); 
+            }
+        }
+    }
+
+    private static String getDeckLocation(Scanner scanner) {
+        System.out.println("Where is the deck?");
+        return scanner.next();
+    }
+
 }
