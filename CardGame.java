@@ -36,7 +36,7 @@ public class CardGame {
         // deal cards to decks
         int numberOfDecks = decks.length;
         
-        int midPoint = deck.length/2;
+        int midPoint = deck.length/2;   
 
         for (int i = midPoint; i < deck.length; i ++){
             decks[i%numberOfDecks].addCardToDeck(deck[i]);
@@ -123,6 +123,7 @@ public class CardGame {
     }
 
     private static String getDeckLocation(Scanner scanner) {
+        // get the location of the deck file
         System.out.println("Where is the deck?");
         return scanner.next();
     }

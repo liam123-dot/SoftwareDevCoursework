@@ -9,11 +9,11 @@ public class CardDeck {
         this.deckNumber = n;
     }
 
-    public void addCardToDeck(Card card) {
+    public synchronized void addCardToDeck(Card card) {
         deck.add(card); // Adds card to the end of the deck
     }
 
-    public Card drawCardFromDeck() {
+    public synchronized Card drawCardFromDeck() {
         return deck.poll(); // Removes and returns the card at the start of the deck
     }
 
@@ -23,5 +23,8 @@ public class CardDeck {
             deckString += card.toString() + " ";
         }
         return deckString;
+    }
+    public int getDeckNumber() {
+        return deckNumber;
     }
 }
