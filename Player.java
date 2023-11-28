@@ -59,7 +59,7 @@ class Player implements Runnable{
         }
     }
 
-    private int getIndexOfCardToDraw() {
+    public int getIndexOfCardToDraw() {
         Random random = new Random();
         while (true) {
             int indexCounter = random.nextInt(4); // Generates a random number between 0 (inclusive) and 4 (exclusive)

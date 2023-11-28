@@ -1,0 +1,52 @@
+player 4 initial hand [7, 78, 5, 4]
+player 4 draws a 4 from deck 4
+player 4 discards a 7 to deck 1
+player 4 current hand is [4, 78, 5, 4]
+player 4 draws a 2 from deck 4
+player 4 discards a 78 to deck 1
+player 4 current hand is [4, 2, 5, 4]
+player 4 draws a 2 from deck 4
+player 4 discards a 5 to deck 1
+player 4 current hand is [4, 2, 2, 4]
+player 4 draws a 4 from deck 4
+player 4 discards a 2 to deck 1
+player 4 current hand is [4, 4, 2, 4]
+player 4 draws a 7 from deck 4
+player 4 discards a 2 to deck 1
+player 4 current hand is [4, 4, 7, 4]
+player 4 draws a 1 from deck 4
+player 4 discards a 7 to deck 1
+player 4 current hand is [4, 4, 1, 4]
+player 4 draws a 6 from deck 4
+player 4 discards a 1 to deck 1
+player 4 current hand is [4, 4, 6, 4]
+player 4 draws a 54 from deck 4
+player 4 discards a 6 to deck 1
+player 4 current hand is [4, 4, 54, 4]
+player 4 draws a 45 from deck 4
+player 4 discards a 54 to deck 1
+player 4 current hand is [4, 4, 45, 4]
+player 4 draws a 1 from deck 4
+player 4 discards a 45 to deck 1
+player 4 current hand is [4, 4, 1, 4]
+player 4 draws a 5 from deck 4
+player 4 discards a 1 to deck 1
+player 4 current hand is [4, 4, 5, 4]
+player 4 draws a 7 from deck 4
+player 4 discards a 5 to deck 1
+player 4 current hand is [4, 4, 7, 4]
+player 4 draws a 6 from deck 4
+player 4 discards a 7 to deck 1
+player 4 current hand is [4, 4, 6, 4]
+player 4 draws a 67 from deck 4
+player 4 discards a 6 to deck 1
+player 4 current hand is [4, 4, 67, 4]
+player 4 draws a 56 from deck 4
+player 4 discards a 67 to deck 1
+player 4 current hand is [4, 4, 56, 4]
+player 4 draws a 5 from deck 4
+player 4 discards a 56 to deck 1
+player 4 current hand is [4, 4, 5, 4]
+player 2 informed player 4 that player 2 has won
+player 4 exits
+player 4 final hand is [4, 4, 5, 4]
