@@ -1,5 +1,5 @@
 class Card {
-    //card class   
+    //Card class   
 
     private int value;
 
@@ -8,10 +8,12 @@ class Card {
     }
 
     public String toString() {
+    // Returns card value as string
         return Integer.toString(value);
     }
 
     public int getValue() {
+    // Returns card value
         return value;
     }
 

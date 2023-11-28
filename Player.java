@@ -1,12 +1,10 @@
-// player must not hold onto a non-preferred denomination card indefinitely, so you
-// must implement your Player class to reflect this restriction
-
 import java.util.Random;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 
 class Player implements Runnable{
+    //player class  
 
     // each player has a private hand of cards
     private Card[] hand = new Card[4];
@@ -16,7 +14,7 @@ class Player implements Runnable{
     
     private GameState gameState;
 
-    //player class    
+  
 
     public Player(int n, CardDeck previousDeck, CardDeck nextDeck, GameState gameState) {
         // constructor
@@ -60,6 +58,7 @@ class Player implements Runnable{
     }
 
     public int getIndexOfCardToDraw() {
+        // Returns index of card to draw based on player number
         Random random = new Random();
         while (true) {
             int indexCounter = random.nextInt(4); // Generates a random number between 0 (inclusive) and 4 (exclusive)
@@ -71,10 +70,12 @@ class Player implements Runnable{
     }
 
     public void setHand(Card[] hand) {
+    // Sets the player's hand
         this.hand = hand;
     }
 
     public Card[] getHand() {
+    // Returns the player's hand
         return hand;
     }
 
@@ -84,6 +85,7 @@ class Player implements Runnable{
     }
 
     public synchronized void addCardToHand(Card card) {
+        // adds a card to the hand
         for (int i = 0; i < hand.length; i++) {
             if (hand[i] == null) {
                 hand[i] = card;

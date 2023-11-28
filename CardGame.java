@@ -2,9 +2,11 @@ import java.util.Scanner;
 import java.io.File;
 
 public class CardGame {
+    //CardGame class
 
     public static void main(String[] args) {
-        
+//  The main method orchestrates the execution of the card game simulation.
+
         Scanner scanner = new Scanner(System.in);
 
         int numberOfPlayers = getNumberOfPlayers(scanner);
@@ -31,6 +33,7 @@ public class CardGame {
 
     public static void dealToPlayers(Card[] deck, Player[] players) {
         // deal cards to players
+
         int numberOfPlayers = players.length;
 
         for (int i = 0; i < deck.length / 2; i++) {
@@ -40,6 +43,7 @@ public class CardGame {
 
     public static void dealToDecks(Card[] deck, CardDeck[] decks) {
         // deal cards to decks
+
         int numberOfDecks = decks.length;
         
         int midPoint = deck.length/2;   
@@ -93,6 +97,7 @@ public class CardGame {
     }
 
     private static Player[] getPlayers(int numberOfPlayers, CardDeck[] decks, GameState gameState) {
+        // Creates an array of Player instances, each associated with two specific decks and the game state.
         Player[] players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
             players[i] = new Player(i + 1, decks[i], decks[(i + 1) % numberOfPlayers], gameState);
@@ -101,7 +106,7 @@ public class CardGame {
     }
 
     private static CardDeck[] getDecks(int numberOfDecks) {
-
+        // Creates and returns an array of CardDeck instances based on the specified number.
         CardDeck[] decks = new CardDeck[numberOfDecks];
         for (int i = 0; i < numberOfDecks; i++) {
             decks[i] = new CardDeck(i + 1);
@@ -111,6 +116,7 @@ public class CardGame {
     }
 
     private static int getNumberOfPlayers(Scanner scanner) {
+        // get the number of players and checks validity
         while (true) {
             try {
                 System.out.println("How many players are there?");

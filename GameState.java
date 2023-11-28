@@ -1,4 +1,5 @@
 public class GameState {
+    //GameState class
 
 
     private Boolean gameWon = false;
@@ -10,6 +11,7 @@ public class GameState {
     }
 
     public synchronized void setGameWon(Player winner) {
+    // Sets the game as won by a specific player and updates the winner and decks accordingly.
         if (this.gameWon) {
             return;
         }
@@ -27,6 +29,7 @@ public class GameState {
     }
     
     private void outputDecks() {
+    // Outputs the final contents of all card decks
         for (CardDeck deck : decks) {
             deck.outputFinalDeck();
         }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class CardDeck {
+//CardDeck class
 private Queue<Card> deck = new LinkedList<>();
     private int deckNumber;
 
@@ -23,6 +24,7 @@ private Queue<Card> deck = new LinkedList<>();
     }
 
     public void outputFinalDeck() {
+    // Outputs the final contents of the deck to a file named after the deck.
         try {
             FileWriter writer = new FileWriter("deck" + deckNumber + "_output.txt");
             writer.write(toString());
@@ -34,6 +36,7 @@ private Queue<Card> deck = new LinkedList<>();
     }
 
     public String toString() {
+    // Returns a string representation of the deck, including its deck number and card contents.
         String deckString = "Deck" + deckNumber + " contents: ";
         for (Card card : deck) {
             deckString += card.toString() + " ";
