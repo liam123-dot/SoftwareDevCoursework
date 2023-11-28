@@ -11,10 +11,16 @@ public class CardDeck {
 
     public synchronized void addCardToDeck(Card card) {
         deck.add(card); // Adds card to the end of the deck
+        System.out.println("Deck " + deckNumber + ": Contents: " + deck.toString());
     }
 
     public synchronized Card drawCardFromDeck() {
-        return deck.poll(); // Removes and returns the card at the start of the deck
+        Card card = deck.poll(); // Removes and returns the card at the start of the deck
+        
+        System.out.println("Deck " + deckNumber + ": Contents: " + deck.toString());
+
+        return card;
+
     }
 
     public String toString() {

@@ -12,38 +12,79 @@ class Player implements Runnable{
     private CardDeck previousDeck;
     private CardDeck nextDeck;
     private int playerNumber;
+    
+    private GameState gameState;
+
+    private int indexCounter = 0;
 
     //player class    
 
-    public Player(int n, CardDeck previousDeck, CardDeck nextDeck) {
+    public Player(int n, CardDeck previousDeck, CardDeck nextDeck, GameState gameState) {
         // constructor
         this.playerNumber = n;
         this.previousDeck = previousDeck;
         this.nextDeck = nextDeck;
+        this.gameState = gameState;
+        createPlayerFile();
     }
 
     public void run() {
         initialHandOutput(Arrays.toString(hand));
 
+        if (checkHasWon()) {
+            this.gameState.setGameWon(this);
+            gameResultOutput(true, Arrays.toString(hand));
+            return;
+        }
+
         // run method
         while (true) {
+            Boolean gameWon = this.gameState.getGameWon();
+            if (gameWon) {
+                gameResultOutput(false, Arrays.toString(hand));
+                return;
+            }
             Card drawnCard = previousDeck.drawCardFromDeck();
             drawOutput(drawnCard.getValue(), previousDeck.getDeckNumber());
         
-            if (drawnCard.getValue() != playerNumber) {
-                Card discardedCard = hand[0];
-                nextDeck.addCardToDeck(discardedCard); // Add to the bottom of the next deck
-                discardOutput(discardedCard.getValue(), nextDeck.getDeckNumber());
-        
-                hand[0] = drawnCard;
-                currentHandOutput(Arrays.toString(hand));
-            }
+            int indexToDraw = getIndexOfCardToDiscard();
+
+            Card discardedCard = hand[indexToDraw];
+            nextDeck.addCardToDeck(discardedCard); // Add to the bottom of the next deck
+            discardOutput(discardedCard.getValue(), nextDeck.getDeckNumber());
+    
+            hand[indexToDraw] = drawnCard;
+            currentHandOutput(Arrays.toString(hand));
+    
         
             if (checkHasWon()) {
+                this.gameState.setGameWon(this);
                 gameResultOutput(true, Arrays.toString(hand));
                 return;
             }
         }
+    }
+
+    private int getIndexOfCardToDiscard(){
+
+        while (true) {
+
+            if (this.hand[indexCounter].getValue() == playerNumber) {
+                indexCounter++;
+                if (indexCounter == 4) {
+                    indexCounter = 0;
+                }
+            } else {
+                int indexToDraw = indexCounter;
+                indexCounter++;
+                if (indexCounter == 4) {
+                    indexCounter = 0;
+                }
+                return indexToDraw;
+            }
+
+        }
+
     }
 
     public void setHand(Card[] hand) {
@@ -86,6 +127,20 @@ class Player implements Runnable{
     
         return true;
     }
+
+    private void createPlayerFile() {
+        try {
+            FileWriter writer = new FileWriter("player" + playerNumber + "_output.txt", false);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Failed to create player" + playerNumber + "_output.txt");
+        }
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
     private void writeToPlayerFile(String action) {
     try (FileWriter writer = new FileWriter("player" + playerNumber + "_output.txt", true)) {
         writer.write(action + "\n");
@@ -111,8 +166,13 @@ class Player implements Runnable{
     }
 
     public void gameResultOutput(boolean checkHasWon, String finalHand) {
-        writeToPlayerFile("player " + playerNumber + (checkHasWon ? " wins" : " exits"));
-        writeToPlayerFile("player " + playerNumber + " final hand: " + finalHand);
+        if (checkHasWon) {
+            writeToPlayerFile("player " + playerNumber + " wins");
+        } else {
+            writeToPlayerFile("player " + this.gameState.getWinner().getPlayerNumber() + " informed player " + playerNumber + " that player " + this.gameState.getWinner().getPlayerNumber() + " has won");
+        }
+        writeToPlayerFile("player " + playerNumber + " exits");
+
     }
 
 }

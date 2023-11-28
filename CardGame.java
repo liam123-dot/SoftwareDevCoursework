@@ -1,6 +1,5 @@
 import java.util.Scanner;
 import java.io.File;
-import java.util.Arrays;
 
 public class CardGame {
 
@@ -12,9 +11,11 @@ public class CardGame {
         String deckLocation = getDeckLocation(scanner);
 
         Card[] deck = loadDeck(deckLocation, numberOfPlayers);
+
+        GameState gameState = new GameState();
         
         CardDeck[] decks = getDecks(numberOfPlayers);
-        Player[] players = getPlayers(numberOfPlayers, decks);
+        Player[] players = getPlayers(numberOfPlayers, decks, gameState);
 
         dealToPlayers(deck, players);
         dealToDecks(deck, decks);
@@ -86,10 +87,10 @@ public class CardGame {
     
     }
 
-    private static Player[] getPlayers(int numberOfPlayers, CardDeck[] decks) {
+    private static Player[] getPlayers(int numberOfPlayers, CardDeck[] decks, GameState gameState) {
         Player[] players = new Player[numberOfPlayers];
         for (int i = 0; i < numberOfPlayers; i++) {
-            players[i] = new Player(i + 1, decks[i], decks[(i + 1) % numberOfPlayers]);
+            players[i] = new Player(i + 1, decks[i], decks[(i + 1) % numberOfPlayers], gameState);
         }
         return players;
     }
