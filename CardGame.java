@@ -12,9 +12,10 @@ public class CardGame {
 
         Card[] deck = loadDeck(deckLocation, numberOfPlayers);
 
-        GameState gameState = new GameState();
-        
         CardDeck[] decks = getDecks(numberOfPlayers);
+
+        GameState gameState = new GameState(decks);
+
         Player[] players = getPlayers(numberOfPlayers, decks, gameState);
 
         dealToPlayers(deck, players);

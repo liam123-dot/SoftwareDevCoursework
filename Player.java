@@ -1,6 +1,7 @@
 // player must not hold onto a non-preferred denomination card indefinitely, so you
 // must implement your Player class to reflect this restriction
 
+import java.util.Random;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -14,8 +15,6 @@ class Player implements Runnable{
     private int playerNumber;
     
     private GameState gameState;
-
-    private int indexCounter = 0;
 
     //player class    
 
@@ -45,9 +44,12 @@ class Player implements Runnable{
                 return;
             }
             Card drawnCard = previousDeck.drawCardFromDeck();
+            if (drawnCard == null) {    
+                return;
+            }
             drawOutput(drawnCard.getValue(), previousDeck.getDeckNumber());
         
-            int indexToDraw = getIndexOfCardToDiscard();
+            int indexToDraw = getIndexOfCardToDraw();
 
             Card discardedCard = hand[indexToDraw];
             nextDeck.addCardToDeck(discardedCard); // Add to the bottom of the next deck
@@ -65,26 +67,15 @@ class Player implements Runnable{
         }
     }
 
-    private int getIndexOfCardToDiscard(){
-
+    private int getIndexOfCardToDraw() {
+        Random random = new Random();
         while (true) {
+            int indexCounter = random.nextInt(4); // Generates a random number between 0 (inclusive) and 4 (exclusive)
 
-            if (this.hand[indexCounter].getValue() == playerNumber) {
-                indexCounter++;
-                if (indexCounter == 4) {
-                    indexCounter = 0;
-                }
-            } else {
-                int indexToDraw = indexCounter;
-                indexCounter++;
-                if (indexCounter == 4) {
-                    indexCounter = 0;
-                }
-                return indexToDraw;
+            if (this.hand[indexCounter].getValue() != playerNumber) {
+                return indexCounter;
             }
-
         }
-
     }
 
     public void setHand(Card[] hand) {
@@ -124,6 +115,8 @@ class Player implements Runnable{
                 return false;
             }
         }
+
+        System.out.println("Player " + playerNumber + " has won");
     
         return true;
     }
