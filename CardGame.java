@@ -21,6 +21,10 @@ public class CardGame {
         dealToPlayers(deck, players);
         dealToDecks(deck, decks);
 
+        for (Player player : players) {
+            player.checkHasWon();
+        }
+
         startPlayers(players);
 
     }

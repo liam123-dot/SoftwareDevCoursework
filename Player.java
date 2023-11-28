@@ -28,19 +28,13 @@ class Player implements Runnable{
     }
 
     public void run() {
-        initialHandOutput(Arrays.toString(hand));
-
-        if (checkHasWon()) {
-            this.gameState.setGameWon(this);
-            gameResultOutput(true, Arrays.toString(hand));
-            return;
-        }
-
         // run method
         while (true) {
             Boolean gameWon = this.gameState.getGameWon();
             if (gameWon) {
-                gameResultOutput(false, Arrays.toString(hand));
+                if (this.gameState.getWinner() != this) {
+                    gameResultOutput(false);
+                }
                 return;
             }
             Card drawnCard = previousDeck.drawCardFromDeck();
@@ -60,8 +54,6 @@ class Player implements Runnable{
     
         
             if (checkHasWon()) {
-                this.gameState.setGameWon(this);
-                gameResultOutput(true, Arrays.toString(hand));
                 return;
             }
         }
@@ -95,12 +87,16 @@ class Player implements Runnable{
         for (int i = 0; i < hand.length; i++) {
             if (hand[i] == null) {
                 hand[i] = card;
+                if (i == hand.length - 1) {
+                    initialHandOutput(Arrays.toString(hand));
+                }
                 return;
             }
         }
+
     }
 
-    private boolean checkHasWon() {
+    public boolean checkHasWon() {
         // checks if the 4 cards in hand all have the same value
         // iterate though hand if one is null return false
         // if all are the same return true
@@ -115,6 +111,9 @@ class Player implements Runnable{
                 return false;
             }
         }
+
+        this.gameState.setGameWon(this);
+        gameResultOutput(true);
 
         System.out.println("Player " + playerNumber + " has won");
     
@@ -158,13 +157,14 @@ class Player implements Runnable{
         writeToPlayerFile("player " + playerNumber + " current hand is " + currentHand);
     }
 
-    public void gameResultOutput(boolean checkHasWon, String finalHand) {
+    public void gameResultOutput(boolean checkHasWon) {
         if (checkHasWon) {
             writeToPlayerFile("player " + playerNumber + " wins");
         } else {
             writeToPlayerFile("player " + this.gameState.getWinner().getPlayerNumber() + " informed player " + playerNumber + " that player " + this.gameState.getWinner().getPlayerNumber() + " has won");
         }
         writeToPlayerFile("player " + playerNumber + " exits");
+        writeToPlayerFile("player " + playerNumber + " final hand is " + Arrays.toString(hand));
 
     }
 
