@@ -14,8 +14,6 @@ class Player implements Runnable{
     
     private GameState gameState;
 
-  
-
     public Player(int n, CardDeck previousDeck, CardDeck nextDeck, GameState gameState) {
         // constructor
         this.playerNumber = n;

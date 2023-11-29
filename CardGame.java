@@ -2,56 +2,53 @@ import java.util.Scanner;
 import java.io.File;
 
 public class CardGame {
-    //CardGame class
+    // Main class for the card game
 
     public static void main(String[] args) {
-//  The main method orchestrates the execution of the card game simulation.
+        // Main method to start the game
 
         Scanner scanner = new Scanner(System.in);
 
+        // Get the number of players and the location of the deck
         int numberOfPlayers = getNumberOfPlayers(scanner);
         String deckLocation = getDeckLocation(scanner);
 
+        // Load the deck and create the decks and players
         Card[] deck = loadDeck(deckLocation, numberOfPlayers);
-
         CardDeck[] decks = getDecks(numberOfPlayers);
-
         GameState gameState = new GameState(decks);
-
         Player[] players = getPlayers(numberOfPlayers, decks, gameState);
 
+        // Deal the cards to the players and the decks
         dealToPlayers(deck, players);
         dealToDecks(deck, decks);
 
+        // Check if any player has won at the start of the game
         for (Player player : players) {
             player.checkHasWon();
         }
 
+        // Start the player threads
         startPlayers(players);
-
     }
 
+    // Method to deal cards to players
     public static void dealToPlayers(Card[] deck, Player[] players) {
-        // deal cards to players
-
         int numberOfPlayers = players.length;
-
-        for (int i = 0; i < deck.length / 2; i++) {
+        // the first half of the deck is dealt to the players
+        for (int i = 0; i < deck.length / 2; i++) { 
             players[i % numberOfPlayers].addCardToHand(deck[i]);
         }
     }
 
+    // Method to deal cards to decks
     public static void dealToDecks(Card[] deck, CardDeck[] decks) {
-        // deal cards to decks
-
         int numberOfDecks = decks.length;
-        
         int midPoint = deck.length/2;   
-
+        // the second half of the deck is dealt to the decks
         for (int i = midPoint; i < deck.length; i ++){
             decks[i%numberOfDecks].addCardToDeck(deck[i]);
         }
-
     }
 
     private static Card[] loadDeck(String fileLocation, int numberOfPlayers){
