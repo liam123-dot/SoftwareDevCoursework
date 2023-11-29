@@ -52,7 +52,7 @@ public class CardGame {
     }
 
     private static Card[] loadDeck(String fileLocation, int numberOfPlayers){
-        // takes the file location. Verifys it has 8n lines that are all ints
+        // takes the file location. Verify it has 8n lines that are all ints
 
         try {
 
@@ -61,30 +61,31 @@ public class CardGame {
 
             Card[] deckArray = new Card[8*numberOfPlayers];
 
-            int i = 0;  
+            int i = 0;
             while (deckScanner.hasNextLine()) {
+                // iterate through each line of the deck file and load the cards into the deckArray
                 String data = deckScanner.nextLine();
                 try {
                     deckArray[i] = new Card(Integer.parseInt(data));
                 } catch (NumberFormatException e) {
-                    System.out.println("The deck file is not formatted correctly");
-                    System.exit(0);
+                    throw new IllegalArgumentException("The deck file is not formatted correctly");
                 }
                 i++;
             }
+            if (i != 8 * numberOfPlayers) {
+                throw new IllegalArgumentException("The deck file does not contain the correct number of cards");
+            }
+            // close the reader and return the deckArray
             deckScanner.close();
             return deckArray;
 
         } catch (Exception e) {
-            System.out.println("The file does not exist in the specified location");
-            System.exit(0);
+            throw new IllegalArgumentException("The file does not exist in the specified location");
         }
-        
-        return null;
     }
 
     private static void startPlayers (Player[] players) {
-        // each Player object implements runnable
+        // each Player object implements runnable this function starts each player thread
 
         for (Player player : players) {
             Thread thread = new Thread(player);
@@ -113,7 +114,7 @@ public class CardGame {
     }
 
     private static int getNumberOfPlayers(Scanner scanner) {
-        // get the number of players and checks validity
+        // get the number of players from user input and checks validity
         while (true) {
             try {
                 System.out.println("How many players are there?");
