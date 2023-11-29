@@ -136,11 +136,11 @@ class Player implements Runnable{
     }
 
     private void writeToPlayerFile(String action) {
-    try (FileWriter writer = new FileWriter("player" + playerNumber + "_output.txt", true)) {
-        writer.write(action + "\n");
-    } catch (IOException e) {
-        System.out.println("Failed to write to player" + playerNumber + "_output.txt");
-    }
+        try (FileWriter writer = new FileWriter("player" + playerNumber + "_output.txt", true)) {
+            writer.write(action + "\n");
+        } catch (IOException e) {
+            System.out.println("Failed to write to player" + playerNumber + "_output.txt");
+        }
     }
 
     public void initialHandOutput(String hand) {

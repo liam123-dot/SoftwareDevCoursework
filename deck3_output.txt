@@ -1,1 +1,1 @@
-Deck3 contents: 7 6 56 3 
+Deck3 contents: 8 56 3 
